@@ -235,6 +235,12 @@ Manage → Repair
 
 ## 📝 Changelog
 
+### v2.8.0
+- ✨ یکپارچگی با DARK NOC Hub — گزینه جدید `DARK NOC` در منوی KHAREJ
+- ✨ فرمت Pair Code جدید `DICMP-N1-<BASE64URL>` با اعتبارسنجی کامل و امنیت بالا
+- ✨ Deploy خودکار KHAREJ بدون سوال اضافه + rollback در صورت fail
+- ✅ Backward compatible با Pair Code قدیمی
+
 ### v2.7.1
 - 🐛 رفع باگ `regen_config` تعریف‌نشده در speed_active (کرش)
 - 🐛 رفع toggle debug log (بین `warn/debug` نه `info/debug`)

@@ -1,41 +1,49 @@
 # Changelog — DARK VPN · ICMP Pro
 
+## [2.8.0] — DARK NOC Integration
+
+### ✨ جدید
+- **DARK NOC Pair Code (N1)** — فرمت جدید `DICMP-N1-<BASE64URL>` برای یکپارچگی با DARK NOC Hub
+- **گزینه DARK NOC در منوی KHAREJ** — `[2] DARK NOC` برای paste کردن NOC Pair Code از Hub
+- **`parse_noc_pair_code`** — parser امن با اعتبارسنجی کامل field-by-field؛ هرگز `eval`/`source` نمی‌کند
+- **`screen_noc_kharej`** — صفحه deploy خودکار KHAREJ بدون سوال اضافه؛ فقط Summary + تأیید Deploy
+- **rollback خودکار** — اگر سرویس fail شد، tunnel، firewall و service پاک می‌شوند
+- **امنیت کامل** — Pair Code یا ENC_KEY هرگز در journal چاپ نمی‌شود
+- **Backward compatible** — Pair Code قدیمی `DICMP-...` بدون تغییر باقی ماند
+
+### 🔒 امنیت N1
+- Base64URL (RFC 4648 §5) — بدون padding، URL-safe
+- هر فیلد جداگانه validate می‌شود: نام، IP، کلید، رمزگذاری، پروفایل، پورت‌ها
+- ports_csv فقط کاراکترهای مجاز دارد — injection غیرممکن
+- pairing_id باید دقیقاً 16 hex char باشد
+
+---
+
 ## [2.7.1] — رفع باگ
 
 ### 🐛 رفع شده
-- **رفع کرش در speed_active** — تابع `regen_config` تعریف نشده بود و باعث کرش تست سرعت فعال می‌شد
-- **رفع toggle debug log** — toggle بین `warn/debug` تغییر کرد تا `load_meta` آن را override نکند
-- **رفع `tunnel_count`** — روی سیستم بدون تانل عدد `1` به جای `0` برمی‌گرداند
+- **رفع کرش در speed_active** — تابع `regen_config` تعریف نشده بود
+- **رفع toggle debug log** — toggle بین `warn/debug` تغییر کرد
+- **رفع `tunnel_count`** — روی سیستم بدون تانل عدد اشتباه برمی‌گرداند
 - **رفع `grep -P`** — جایگزینی با `awk` برای سازگاری با Alpine/BusyBox
-- **رفع cleanup پورت temp** — اضافه شدن trap برای پاکسازی پورت موقت هنگام Ctrl+C در speed test
-- **رفع `LOCAL_BIND` در port remap** — capture مقدار قبل از `resolve_port_clashes`
-- **رفع `LOGLEVEL` در ایجاد تانل KHAREJ** — مقدار اولیه از `info` به `warn` تغییر کرد
+- **رفع cleanup پورت temp** — trap برای پاکسازی هنگام Ctrl+C
+- **رفع `LOCAL_BIND` در port remap**
+- **رفع `LOGLEVEL` در ایجاد تانل KHAREJ**
 
 ---
 
 ## [2.7.0]
 
 ### ✨ جدید
-- افزودن پروفایل‌های پرفورمنس: Stable، Balanced، Low Ping، Turbo، Custom
-- افزودن تست سرعت فعال با speed responder روی KHAREJ
-- افزودن نمایش fingerprint تنظیمات برای مقایسه دو طرف
-- افزودن Link Test — تست پایداری در بازه زمانی دلخواه
-- پشتیبانی از چندین تانل همزمان روی یک هاست با کلیدهای مجزا
-
-### 🔧 بهبود
-- بهبود تشخیص IP عمومی و تشخیص NAT
-- بهبود مدیریت پورت‌های تداخل‌دار با رفع خودکار
-- بهبود پیام‌های خطا با نمایش دلیل عدم اجرای سرویس
-- بهبود sweep_partials برای پاکسازی تانل‌های ناقص
-
-### 🐛 رفع شده
-- رفع مشکل partial tunnel هنگام Ctrl+C در حین setup
+- پروفایل‌های پرفورمنس: Stable، Balanced، Low Ping، Turbo، Custom
+- تست سرعت فعال با speed responder
+- بهبود تشخیص IP و NAT
+- پشتیبانی از چندین تانل همزمان
 
 ---
 
 ## [2.6.x]
-
-- پشتیبانی از رمزگذاری AES-256 و ChaCha20
-- سیستم Pair Code v2 با پروفایل پرفورمنس
-- داشبورد زنده با refresh خودکار
-- تایمر ری‌استارت زمان‌بندی شده
+- رمزگذاری AES-256 و ChaCha20
+- سیستم Pair Code v2
+- داشبورد زنده
+- تایمر ری‌استارت
